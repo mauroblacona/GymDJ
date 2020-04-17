@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<table class="table table-borderless" id="dataTable">
+    <thead class="border-bottom font-weight-bold">
+        <tr>
+            <td>Nombre Completo</td>
+            <td>Email</td>
+            <td>Dni</td>
+            <td>Genero</td>
+            <td>Telefono</td>
+            <td>Telefono Emergencia</td>
+            <td>Domicilio</td>
+            <td>Fecha Nacimiento</td>
+            <td>Fecha Inicio</td>
+            <td>Sucursal</td>
+            <td>Especialidad</td>
+            <td>Observaciones Medicas</td>
+            <td>Actividades</td>
+            <td>Status</td>
+            <td>
+                <a href="{% url 'empleado_insert' %}" class="btn btn-outline-success">
+                    <i class="fas fa-plus"></i> Add New
+                </a>
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for empleado in empleado_lista %}
+        <tr>
+            <td>{{empleado.nombrecompleto}}</td>
+            <td>{{empleado.email}}</td>
+            <td>{{empleado.dni}}</td>
+            <td>{{empleado.genero}}</td>
+            <td>{{empleado.telefono}}</td>
+            <td>{{empleado.telefono_emergencia}}</td>
+            <td>{{empleado.domicilio}}</td>
+            <td>{{empleado.fecha_nacimiento}}</td>
+            <td>{{empleado.fecha_inicio}}</td>
+            <td>{{empleado.sucursal}}</td>
+            <td>{{empleado.especialidad}}</td>
+            <td>{{empleado.observaciones_medicas}}</td>
+            <td>{{empleado.actividades.all}}</td>
+            <td>{{empleado.status}}</td>
+            <td>
+                <a href="{% url 'empleado_update' empleado.id %}" class="btn text-secondary px-0">
+                    <i class="far fa-edit fa-lg"></i>
+                </a>
+                <!--
+                <form action="{% url 'empleado_delete' empleado.id %}" method="POST" class="d-inline">
+                    {% csrf_token %}
+                    <button type="submit" class="btn">
+                        <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
+                    </button>
+                </form>
+                -->
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+<script>
+    $(function () {
+        $('#dataTable').DataTable({
+            "pageLength": 10,
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": false,
+            "info": true,
+            "autoWidth": false
+        });
+    });
+</script>
+{% endblock content %}
